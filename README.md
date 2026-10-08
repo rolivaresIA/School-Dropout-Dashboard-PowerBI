@@ -1,60 +1,44 @@
-# Visualizacion de Datos con Power BI
+# School Dropout Analysis with R and Power BI (Chile)
 
-## 📝 Contexto
-En el ámbito profesional, enfrentarse a pruebas técnicas es una experiencia común para los candidatos en roles relacionados con análisis de datos y programación. Estas pruebas, diseñadas para evaluar habilidades prácticas, suelen incluir tareas como desarrollar gráficos interactivos y analizar bases de datos. 
-
-Este proyecto surge de una prueba técnica realizada para el Ministerio de Educación de Chile (MINEDUC), en la que se evaluaron mis habilidades en programación con R y visualización de datos mediante Power BI enfocándose en la desvinculación de estudiantes en establecimientos particulares subvencionados. La intención de compartir este proyecto en GitHub es mostrar cómo abordar este tipo de desafíos, aplicando buenas prácticas en análisis y visualización de datos.
+**Technical assessment for the Data Science Unit of the Chilean Ministry of Education (MINEDUC): quantifying school dropout in subsidised private schools and visualising it in an interactive dashboard.**
 
 ![](images/Logo_del_Ministerio_de_Educación_Chile1.jpg)
 
-## 📋 Descripción del Proyecto
-El proyecto consiste en una serie de análisis enfocados en responder preguntas específicas sobre desvinculación escolar, utilizando datos reales del sistema educativo chileno. La metodología incluye:
+> **Language note:** the assessment brief, the descriptive-analysis document (PDFs) and the Power BI dashboard are in **Spanish** (the language of the assessment). The code, the analysis notebook and this README are in English.
 
-- Procesamiento y análisis de bases de datos en R.
-- Cálculos de métricas clave como matrícula teórica, número de estudiantes desvinculados y tasas de desvinculación por región.
-- Creación de visualizaciones interactivas en Power BI para una mejor interpretación de los resultados.
-- Propuesta de acciones basadas en los hallazgos, utilizando principios de análisis descriptivo y predictivo.
+## Context
 
-**Es por esto, que la ruta correcta para ver este proyecto es:**
+Technical assessments are a common step when applying for analyst roles. This one tested **R programming**, **data handling** and **visualisation with Power BI**, applied to a real policy question: how many students leave subsidised private schools between 2023 and 2024, and where?
 
-1. En la carpeta **pdf** se presenta la [Evaluación Técnica](pdf/Evaluación_Técnica-Analista_UCD.pdf) con sus respectivas actividades
-2. Obtención de bases de datos: Una vez entendida la actividad, descargamos las bases del siguiente [link](https://drive.google.com/drive/folders/1DT-R1INN3gBh_n6K-IE5SXYyp9DMSnBl?usp=drive_link)
-3. Procesamiento, análisis y cálculo de métricas solicitadas se pueden ver con detalle en el archivo [README](prueba_tecnica_mineduc.md) y de manera complementaria se puede descargar el [script](script/script_respaldo.R)
-4. Análisis del panel o gráficos interactivos a través del archivo [pbix](https://drive.google.com/file/d/1X59fU3MQ7g4r2e_skXa94bGQQTQVifbx/view?usp=drive_link) de Power BI
-5. Análisis descriptivo y propuestas de acciones en el archivo de [Análisis_Descriptivo_Datos.pdf](pdf/Análisis_Descriptivo_Datos.pdf)
+## What was done
 
-## 🎯 Ojetivo del Proyecto
-El objetivo de este proyecto es analizar y visualizar datos relacionados con la desvinculación escolar en establecimientos particulares subvencionados de Chile, utilizando herramientas como R y Power BI para extraer métricas clave, generar visualizaciones interactivas y proponer acciones basadas en los hallazgos.
+- **Data processing in R** with official 2023 performance and 2024 enrolment files: a student is a *dropout* if they appear in the 2023 performance data but not in the 2024 enrolment (anti-join on student ID).
+- **Data quality:** 14,885 duplicated student IDs found and removed, so the first count (348,749) became the real figure of **332,766 students**.
+- **Metrics:** theoretical enrolment (current enrolment + dropouts) and dropout rate by **region** and by **school** (5,132 schools).
+- **Dashboard in Power BI** with bars of dropouts by region, dropout % by region, slicers and KPI cards.
+- **Descriptive analysis and policy proposals:** three prioritised measures to reduce dropout, based on the findings.
+
+## Key results
+
+- **332,766 students** left subsidised private schools in 2023-2024.
+- Regional dropout rates range from **12.7% (Nuble) to 16.5% (Los Rios)**; the Metropolitan region concentrates the highest absolute number (134,997 students, 14.5%).
+- Rates differ much more **between schools** than between regions, so school-level factors seem to matter more than geography.
+- **Methodological caveats** (documented in the notebook): "dropout" here means leaving *this school type* (not necessarily the whole system), and students graduating in 2023 are probably counted as dropouts.
 
 ![](images/visualizador.png)
 ![](images/visualizador2.png)
 
-## 💡 Desarrollo del Proyecto
-El proyecto se desarrolló en las siguientes fases:
+## Where to look
 
-**Fase 1: Carga y exploración de datos**
-- Importación de dos bases de datos en formato CSV: Matrícula Oficial 2023 (completa) y Rendimiento 2023 (establecimientos particulares subvencionados).
-- Revisión del libro de códigos en formato PDF para comprender las variables disponibles.
-- Exploración inicial de los datos para identificar inconsistencias y valores nulos.
-  
-**Fase 2: Procesamiento de datos**
+| What | Where |
+|---|---|
+| Analysis notebook (code, outputs, caveats) | [`dropout_analysis.md`](dropout_analysis.md) |
+| R script | [`script/dropout_analysis.R`](script/dropout_analysis.R) |
+| Data (not included, instructions) | [`databases/README.md`](databases/README.md) |
+| Original assessment brief (Spanish) | [`pdf/Evaluación_Técnica-Analista_UCD.pdf`](pdf/Evaluación_Técnica-Analista_UCD.pdf) |
+| Descriptive analysis and proposals (Spanish) | [`pdf/Análisis_Descriptivo_Datos.pdf`](pdf/Análisis_Descriptivo_Datos.pdf) |
+| Power BI file (.pbix) | [Google Drive](https://drive.google.com/file/d/1X59fU3MQ7g4r2e_skXa94bGQQTQVifbx/view?usp=drive_link) |
 
-Cálculos principales:
-- Número de estudiantes desvinculados (2023-2024).
-- Matrícula teórica y tasa de desvinculación por región.
-- Desagregación adicional según criterio seleccionado.
-- Procesamiento de los datos en R para obtener tablas resumen y métricas clave.
+## Tech stack
 
-**Fase 3: Visualización en Power BI**
-
-Creación de un dashboard interactivo que incluye:
-- Gráfico de barras con estudiantes desvinculados por región.
-- Gráfico con porcentajes de desvinculación por región.
-- Segmentador de datos y tarjetas con métricas clave para explorar información de forma dinámica.
-
-**Fase 4: Análisis descriptivo**
-- Análisis de las regiones más afectadas por la desvinculación, explorando posibles razones detrás de los resultados.
-- Discusión sobre variables relevantes y técnicas predictivas aplicables al problema, incluyendo posibles limitaciones de los datos disponibles.
-  
-**Fase 5: Propuesta de políticas públicas**
-- Priorización de tres medidas para reducir la desvinculación escolar, basadas en los hallazgos del análisis.
+R (tidyverse, writexl), Power BI.
